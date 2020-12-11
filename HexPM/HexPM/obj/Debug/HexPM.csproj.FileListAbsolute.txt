@@ -1,0 +1,9 @@
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\bin\Debug\HexPM.exe.config
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\bin\Debug\HexPM.exe
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\bin\Debug\HexPM.pdb
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.CoreCompileInputs.cache
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\HexPM.exe
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\HexPM.pdb
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\HexPM.csprojAssemblyReference.cache
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\crazy\Desktop\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.ResolveComReference.cache

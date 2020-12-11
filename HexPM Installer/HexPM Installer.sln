@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexPM Installer", "HexPM Installer\HexPM Installer.csproj", "{17B468D4-706E-4FB3-A589-0E2BC80EE6C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17B468D4-706E-4FB3-A589-0E2BC80EE6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B468D4-706E-4FB3-A589-0E2BC80EE6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B468D4-706E-4FB3-A589-0E2BC80EE6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B468D4-706E-4FB3-A589-0E2BC80EE6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91E0D5D1-50E7-4A67-9227-38347ECD1CFC}
+	EndGlobalSection
+EndGlobal
