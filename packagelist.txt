@@ -1,2 +1,0 @@
-notepad++;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/notepad++.is
-discord;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/discord.is
