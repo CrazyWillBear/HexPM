@@ -142,7 +142,7 @@ namespace HexPM
                 ZipFile.ExtractToDirectory(packageName + ".zip", installDir);
                 System.IO.File.Delete(packageName + ".zip");
                 Console.WriteLine("Saving in install history...");
-                System.IO.File.AppendAllText("installhistory.txt", "\n" + packageName + ";" + installDir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + packageName + ".lnk");
+                System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + packageName + ";" + installDir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + packageName + ".lnk");
                 Console.WriteLine("Finalizing installation...");
                 if (System.IO.File.Exists(packageName + ".lnk"))
                 {
@@ -174,37 +174,101 @@ namespace HexPM
                 }
             }
         }
-
-        public static int bar = 0;
-        public static string[] barlist = {};
-
+        public static string bar = "";
         private static void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            barlist = new string[51];
-            bar = (e.ProgressPercentage / 2);
             if (downloadComplete == false)
             {
                 if (e.ProgressPercentage == 100)
                 {
-                    for (int i = 0; i < 50; i++)
-                    {
-                        barlist[i] = "#";
-                    }
+                    bar = "####################";
                     downloadComplete = true;
-                    Console.Write("\r" + e.ProgressPercentage + "%" + " | " + string.Join("", barlist));
+                    Console.Write("\r" + e.ProgressPercentage + "%" + " | " + bar);
                     Console.WriteLine("\nDownloaded files! Press any key to continue installation");
                 }
                 if (e.ProgressPercentage != 100)
                 {
-                    for (int i = 0; i < bar; i++)
+                    Console.Write("\r" + e.ProgressPercentage + "%" + " | " + bar);
+                    if (e.ProgressPercentage == 0)
                     {
-                        barlist[i] = "#";
+                        bar = "[--------------------]";
                     }
-                    for (int i = bar; i < 50; i++)
+                    if (e.ProgressPercentage == 5)
                     {
-                        barlist[i] = "-";
+                        bar = "[#-------------------]";
                     }
-                    Console.Write("\r" + e.ProgressPercentage + "%" + " | " + string.Join("", barlist));
+                    if (e.ProgressPercentage == 10)
+                    {
+                        bar = "[##------------------]";
+                    }
+                    if (e.ProgressPercentage == 15)
+                    {
+                        bar = "[###-----------------]";
+                    }
+                    if (e.ProgressPercentage == 20)
+                    {
+                        bar = "[####----------------]";
+                    }
+                    if (e.ProgressPercentage == 25)
+                    {
+                        bar = "[#####---------------]";
+                    }
+                    if (e.ProgressPercentage == 30)
+                    {
+                        bar = "[######--------------]";
+                    }
+                    if (e.ProgressPercentage == 35)
+                    {
+                        bar = "[#######-------------]";
+                    }
+                    if (e.ProgressPercentage == 40)
+                    {
+                        bar = "[########------------]";
+                    }
+                    if (e.ProgressPercentage == 45)
+                    {
+                        bar = "[#########-----------]";
+                    }
+                    if (e.ProgressPercentage == 50)
+                    {
+                        bar = "[##########----------]";
+                    }
+                    if (e.ProgressPercentage == 55)
+                    {
+                        bar = "[###########---------]";
+                    }
+                    if (e.ProgressPercentage == 60)
+                    {
+                        bar = "[############--------]";
+                    }
+                    if (e.ProgressPercentage == 65)
+                    {
+                        bar = "[#############-------]";
+                    }
+                    if (e.ProgressPercentage == 70)
+                    {
+                        bar = "[##############------]";
+                    }
+                    if (e.ProgressPercentage == 75)
+                    {
+                        bar = "[###############-----]";
+                    }
+                    if (e.ProgressPercentage == 80)
+                    {
+                        bar = "[################----]";
+                    }
+                    if (e.ProgressPercentage == 85)
+                    {
+                        bar = "[#################---]";
+                    }
+                    if (e.ProgressPercentage == 90)
+                    {
+                        bar = "[##################--]";
+                    }
+                    if (e.ProgressPercentage == 95)
+                    {
+                        bar = "[###################-]";
+                    }
                 }
             }
         }

@@ -1,2 +1,4 @@
 notepad++;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/notepad++.is
-discord;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/discord.is
+twitch;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/twitch.is
+chrome;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/chrome.is
+obs;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/obs.is

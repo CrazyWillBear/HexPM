@@ -64,8 +64,10 @@ namespace HexPM_Installer
         {
             if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM"))
             {
-                Directory.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM", true);
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
+                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe"))
+                {
+                    File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe");
+                }
             }
             else
             {
