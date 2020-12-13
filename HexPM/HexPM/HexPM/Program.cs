@@ -119,7 +119,7 @@ namespace HexPM
                     try
                     {
                         Console.WriteLine("Searching through install history...");
-                        string[] text = File.ReadAllLines(@"C: \Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt");
+                        string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt");
                         for (int i = 0; i < text.Length; i++)
                         {
                             string[] textSplit = text[i].Split(';');

@@ -69,13 +69,14 @@ namespace HexPM_Installer
                     File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe");
                 }
             }
+            if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\HexPM")) { }
             else
             {
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\HexPM");
             }
-            var currentValue = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
+            var currentValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
             var newValue = currentValue + @";C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM";
-            Environment.SetEnvironmentVariable("PATH", newValue, EnvironmentVariableTarget.User);
+            Environment.SetEnvironmentVariable("Path", newValue, EnvironmentVariableTarget.User);
 
         }
         public static int intInput;
