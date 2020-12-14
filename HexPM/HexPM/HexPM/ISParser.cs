@@ -142,34 +142,42 @@ namespace HexPM
                 ZipFile.ExtractToDirectory(packageName + ".zip", installDir);
                 System.IO.File.Delete(packageName + ".zip");
                 Console.WriteLine("Saving in install history...");
-                System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + packageName + ";" + installDir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + packageName + ".lnk");
+                DateTime now = DateTime.Now;
+                System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + packageName + ";" + installDir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + packageName + ".lnk" + ";" + now.ToString("F"));
                 Console.WriteLine("Finalizing installation...");
-                if (System.IO.File.Exists(packageName + ".lnk"))
+                if (shortPath == "none/")
                 {
-                    if (shortIcoPath == "none")
-                    {
-                        System.IO.File.Delete(packageName + ".lnk");
-                        IcoLessCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc);
-                        Console.WriteLine("Install successful! (Press any key to continue)");
-                    }
-                    else
-                    {
-                        System.IO.File.Delete(packageName + ".lnk");
-                        IcoFullCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc, shortIcoPath);
-                        Console.WriteLine("Install successful! (Press any key to continue)");
-                    }
+                    Console.WriteLine("Install successful! (Press any key to continue)");
                 }
                 else
                 {
-                    if (shortIcoPath == "none")
+                    if (System.IO.File.Exists(packageName + ".lnk"))
                     {
-                        IcoLessCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc);
-                        Console.WriteLine("Install successful! (Press any key to continue)");
+                        if (shortIcoPath == "none")
+                        {
+                            System.IO.File.Delete(packageName + ".lnk");
+                            IcoLessCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc);
+                            Console.WriteLine("Install successful! (Press any key to continue)");
+                        }
+                        else
+                        {
+                            System.IO.File.Delete(packageName + ".lnk");
+                            IcoFullCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc, shortIcoPath);
+                            Console.WriteLine("Install successful! (Press any key to continue)");
+                        }
                     }
                     else
                     {
-                        IcoFullCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc, shortIcoPath);
-                        Console.WriteLine("Install successful! (Press any key to continue)");
+                        if (shortIcoPath == "none")
+                        {
+                            IcoLessCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc);
+                            Console.WriteLine("Install successful! (Press any key to continue)");
+                        }
+                        else
+                        {
+                            IcoFullCreateShortcut(packageName, @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs", shortPath, shortDesc, shortIcoPath);
+                            Console.WriteLine("Install successful! (Press any key to continue)");
+                        }
                     }
                 }
             }

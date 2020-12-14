@@ -30,7 +30,7 @@ namespace HexPM_Installer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("HexPM Installer  >>  An error has occured" + ex);
+                Console.WriteLine("HexPM Installer  >>  An error has occured\n" + ex);
                 Console.ReadKey(true);
             }
         }
@@ -68,6 +68,10 @@ namespace HexPM_Installer
                 {
                     File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe");
                 }
+            }
+            else
+            {
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
             }
             if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\HexPM")) { }
             else
@@ -113,7 +117,7 @@ namespace HexPM_Installer
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("HexPM Installer >>  An error has occured");
+                    Console.WriteLine("HexPM Installer >>  An error has occured\n" + ex);
                     Console.ReadKey(true);
                 }
             }

@@ -6,13 +6,13 @@ namespace HexPM
 {
     internal class Program
     {
-        public static string version = "v0.2 beta";
+        public static string version = "v0.3 beta";
 
         private static void Main(string[] args)
         {
             try
             {
-                if (args[0] == "--updatelist" || args[0] == "-ulist")
+                if (args[0] == "--updatelist" || args[0] == "-U")
                 {
                     var client = new WebClient();
                     Console.WriteLine("Attempting to download packagelist...");
@@ -29,6 +29,10 @@ namespace HexPM
                 }
                 if (args[0] == "--install" || args[0] == "-i")
                 {
+                    Console.WriteLine("Updating packagelist...");
+                    var client = new WebClient();
+                    client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                    Console.WriteLine("Packagelist successfully updated!");
                     if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt"))
                     {
                         if (args.Length < 2)
@@ -39,12 +43,11 @@ namespace HexPM
                         string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                         string packageName = args[1];
                         Console.WriteLine("Searching for package in packagelist...");
-                        var client = new WebClient();
                         bool packagefound = false;
                         for (int i = 0; i < text.Length; i++)
                         {
                             string[] textSplit = text[i].Split(';');
-                            if (textSplit[0] == packageName)
+                            if (textSplit[0].ToLower() == packageName.ToLower())
                             {
                                 Console.WriteLine("Package exists!");
                                 packagefound = true;
@@ -69,7 +72,7 @@ namespace HexPM
                         }
                         if (packagefound == false)
                         {
-                            Console.WriteLine("ERROR! Exception: \nPackageDoesn'tExist, try using the 'ulist' command");
+                            Console.WriteLine("ERROR! Exception: \nPackageDoesn'tExist, try using the 'U' command");
                             Console.ReadKey(true);
                             Environment.Exit(0);
                         }
@@ -114,7 +117,7 @@ namespace HexPM
                     Console.ForegroundColor = ConsoleColor.White;
                     Environment.Exit(0);
                 }
-                if (args[0] == "--uninstall" || args[0] == "-ui")
+                if (args[0] == "--uninstall" || args[0] == "-u")
                 {
                     try
                     {
@@ -123,7 +126,7 @@ namespace HexPM
                         for (int i = 0; i < text.Length; i++)
                         {
                             string[] textSplit = text[i].Split(';');
-                            if (args[1] == textSplit[0])
+                            if (args[1].ToLower() == textSplit[0].ToLower())
                             {
                                 if (Directory.Exists(textSplit[1]))
                                 {
@@ -139,7 +142,7 @@ namespace HexPM
                                 }
                             }
                         }
-                        Console.WriteLine("This package isn't in your install history! Did you install it thorugh this package manager?");
+                        Console.WriteLine("This package isn't in your install history! Did you install it through this package manager?");
                     }
                     catch (Exception ex)
                     {
@@ -150,11 +153,30 @@ namespace HexPM
                 {
                     Console.WriteLine("\nFor details on proper syntax and tips on how to more effectively use HexPM, visit our Wiki (https://succandcap.glitch.me/pages/hexpm.html)");
                     Console.WriteLine("\ninstall <packagename>, i <packagename>: installs selected package");
-                    Console.WriteLine("uninstall <packagename>, ui <packagename>: uninstalls selected package");
+                    Console.WriteLine("uninstall <packagename>, u <packagename>: uninstalls selected package");
                     Console.WriteLine("version, v: displays version information");
                     Console.WriteLine("license, l: displays software license information");
                     Console.WriteLine("clear, c: clears console window");
-                    Console.WriteLine("updatelist, ulist: updates packagelist\n");
+                    Console.WriteLine("updatelist, U: updates packagelist\n");
+                    Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                    Environment.Exit(0);
+                }
+                if (args[0] == "--search" || args[0] == "-s")
+                {
+                    string searchQuery = args[1];
+                    Console.WriteLine("Updating packagelist...");
+                    var client = new WebClient();
+                    client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                    Console.WriteLine("Packagelist successfully updated!");
+                    Console.WriteLine("Searching packagelist for: " + searchQuery);
+                    string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                    for (int i = 0; i < text.Length; i++)
+                    {
+                        if (text[i].Split(';')[0].ToLower().Contains(searchQuery.ToLower()))
+                        {
+                            Console.WriteLine("Found: " + text[i].Split(';')[0]);
+                        }
+                    }
                     Environment.Exit(0);
                 }
                 else
@@ -175,7 +197,7 @@ namespace HexPM
                     Console.Write("HexPM  >>  ");
                     string input = Console.ReadLine();
                     string[] inputSplit = input.Split(' ');
-                    if (inputSplit[0] == "ulist" || inputSplit[0] == "updatelist")
+                    if (inputSplit[0] == "U" || inputSplit[0] == "updatelist")
                     {
                         var client = new WebClient();
                         Console.WriteLine("Attempting to download packagelist...");
@@ -194,6 +216,10 @@ namespace HexPM
                     }
                     if (inputSplit[0] == "install" || inputSplit[0] == "i")
                     {
+                        Console.WriteLine("Updating packagelist...");
+                        var client = new WebClient();
+                        client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                        Console.WriteLine("Packagelist successfully updated!");
                         if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt"))
                         {
                             if (inputSplit.Length < 2)
@@ -201,14 +227,13 @@ namespace HexPM
                                 Console.WriteLine("Please specify a package!");
                                 ShellMode();
                             }
-                            var client = new WebClient();
                             string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                             string packageName = inputSplit[1];
                             Console.WriteLine("Searching for package in packagelist...");
                             for (int i = 0; i < text.Length; i++)
                             {
                                 string[] textSplit = text[i].Split(';');
-                                if (textSplit[0] == packageName)
+                                if (textSplit[0].ToLower() == packageName.ToLower())
                                 {
                                     Console.WriteLine("Package exists!");
                                     try
@@ -237,7 +262,7 @@ namespace HexPM
                         }
                         else
                         {
-                            Console.WriteLine("ERROR: Packagelist does not exist! Run the 'ulist' command to download the latest available packagelist.");
+                            Console.WriteLine("ERROR: Packagelist does not exist! Run the 'U' command to download the latest available packagelist.");
                             ShellMode();
                         }
                     }
@@ -275,7 +300,7 @@ namespace HexPM
                         Console.ForegroundColor = ConsoleColor.White;
                         ShellMode();
                     }
-                    if (inputSplit[0] == "uninstall" || inputSplit[0] == "ui")
+                    if (inputSplit[0] == "uninstall" || inputSplit[0] == "u")
                     {
                         try
                         {
@@ -284,7 +309,7 @@ namespace HexPM
                             for (int i = 0; i < text.Length; i++)
                             {
                                 string[] textSplit = text[i].Split(';');
-                                if (inputSplit[1] == textSplit[0])
+                                if (inputSplit[1].ToLower() == textSplit[0].ToLower())
                                 {
                                     Console.WriteLine("Found! Uninstalling...");
                                     if (Directory.Exists(textSplit[1]))
@@ -301,7 +326,7 @@ namespace HexPM
                                     }
                                 }
                             }
-                            Console.WriteLine("This package isn't in your install history! Did you install it thorugh this package manager?");
+                            Console.WriteLine("This package isn't in your install history! Did you install it through this package manager?");
                         }
                         catch (Exception ex)
                         {
@@ -312,11 +337,30 @@ namespace HexPM
                     {
                         Console.WriteLine("\nFor details on proper syntax and tips on how to more effectively use HexPM, visit our Wiki (https://succandcap.glitch.me/pages/hexpm.html)");
                         Console.WriteLine("\ninstall <packagename>, i <packagename>: installs selected package");
-                        Console.WriteLine("uninstall <packagename>, ui <packagename>: uninstalls selected package");
+                        Console.WriteLine("uninstall <packagename>, u <packagename>: uninstalls selected package");
                         Console.WriteLine("version, v: displays version information");
                         Console.WriteLine("license, l: displays software license information");
                         Console.WriteLine("clear, c: clears console window");
-                        Console.WriteLine("updatelist, ulist: updates packagelist\n");
+                        Console.WriteLine("updatelist, U: updates packagelist\n");
+                        Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                        ShellMode();
+                    }
+                    if (inputSplit[0] == "search" || inputSplit[0] == "s")
+                    {
+                        string searchQuery = inputSplit[1];
+                        Console.WriteLine("Updating packagelist...");
+                        var client = new WebClient();
+                        client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                        Console.WriteLine("Packagelist successfully updated!");
+                        Console.WriteLine("Searching packagelist for: " + searchQuery);
+                        string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                        for (int i = 0; i < text.Length; i++)
+                        {
+                            if (text[i].Split(';')[0].ToLower().Contains(searchQuery.ToLower()))
+                            {
+                                Console.WriteLine("Found: " + text[i].Split(';')[0]);
+                            }
+                        }
                         ShellMode();
                     }
                     else
