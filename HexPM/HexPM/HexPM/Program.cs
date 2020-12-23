@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using FuzzySharp;
 
 namespace HexPM
 {
     internal class Program
     {
-        public static string version = "v0.3 beta";
+        public static string version = "v0.5 beta";
 
         private static void Main(string[] args)
         {
@@ -159,6 +160,7 @@ namespace HexPM
                     Console.WriteLine("clear, c: clears console window");
                     Console.WriteLine("updatelist, U: updates packagelist\n");
                     Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                    Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                     Environment.Exit(0);
                 }
                 if (args[0] == "--search" || args[0] == "-s")
@@ -172,11 +174,22 @@ namespace HexPM
                     string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                     for (int i = 0; i < text.Length; i++)
                     {
-                        if (text[i].Split(';')[0].ToLower().Contains(searchQuery.ToLower()))
+                        if (Fuzz.Ratio(searchQuery.ToLower(), text[i].Split(';')[0].ToLower()) >= 65)
                         {
                             Console.WriteLine("Found: " + text[i].Split(';')[0]);
                         }
                     }
+                    Environment.Exit(0);
+                }
+                if (args[0] == "--installedpackages" || args[0] == "-p")
+                {
+                    string[] directories = Directory.GetDirectories("C:/Users/" + Environment.UserName + "/HexPM");
+                    for (int i = 0; i < directories.Length; i++)
+                    {
+                        directories[i] = directories[i].Split('\\')[1];
+                    }
+                    string combinedDirectories = string.Join(", ", directories);
+                    Console.WriteLine("Installed packages:\n" + combinedDirectories);
                     Environment.Exit(0);
                 }
                 else
@@ -343,6 +356,7 @@ namespace HexPM
                         Console.WriteLine("clear, c: clears console window");
                         Console.WriteLine("updatelist, U: updates packagelist\n");
                         Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                        Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                         ShellMode();
                     }
                     if (inputSplit[0] == "search" || inputSplit[0] == "s")
@@ -356,17 +370,44 @@ namespace HexPM
                         string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                         for (int i = 0; i < text.Length; i++)
                         {
-                            if (text[i].Split(';')[0].ToLower().Contains(searchQuery.ToLower()))
+                            if (Fuzz.Ratio(searchQuery.ToLower(), text[i].Split(';')[0].ToLower()) >= 65)
                             {
                                 Console.WriteLine("Found: " + text[i].Split(';')[0]);
                             }
                         }
                         ShellMode();
                     }
+                    if (inputSplit[0] == "installedpackages" || inputSplit[0] == "p")
+                    {
+                        string[] directories = Directory.GetDirectories("C:/Users/" + Environment.UserName + "/HexPM");
+                        for (int i = 0; i < directories.Length; i++)
+                        {
+                            directories[i] = directories[i].Split('\\')[1];
+                        }
+                        string combinedDirectories = string.Join(", ", directories);
+                        Console.WriteLine("Installed packages:\n" + combinedDirectories);
+                        ShellMode();
+                    }
                     else
                     {
                         Console.WriteLine("ERROR! Exception: \nCommand unknown.");
                     }
+                }
+            }
+        }
+        public static void searchPkgList(string searchQuery)
+        {
+            Console.WriteLine("Updating packagelist...");
+            var client = new WebClient();
+            client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+            Console.WriteLine("Packagelist successfully updated!");
+            Console.WriteLine("Searching packagelist for: " + searchQuery);
+            string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i].Split(';')[0].ToLower().Contains(searchQuery.ToLower()))
+                {
+                    Console.WriteLine("Found: " + text[i].Split(';')[0]);
                 }
             }
         }

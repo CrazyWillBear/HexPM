@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -68,6 +69,10 @@ namespace HexPM_Installer
                 {
                     File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe");
                 }
+                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\FuzzySharp.dll"))
+                {
+                    File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\FuzzySharp.dll");
+                }
             }
             else
             {
@@ -83,44 +88,15 @@ namespace HexPM_Installer
             Environment.SetEnvironmentVariable("Path", newValue, EnvironmentVariableTarget.User);
 
         }
-        public static int intInput;
-        public static bool choosingVersion = true;
         static void Install()
         {
             var client = new WebClient();
-            string[] availableVersions = client.DownloadString("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/availableversions.txt").Split('\n');
             Console.WriteLine("HexPM Installer >>  In order to continue the installation, you must agree to the license (https://unlicense.org/). (Press any button to agree with the license and continue the installation, press ctrl+c or close out of the installer to cancel the installation)");
             Console.ReadKey(true);
-            while (choosingVersion)
-            {
-                Console.WriteLine("HexPM Installer >>  Which version of HexPM would you like to download? (Enter the corresponding number)\n");
-                for (int i = 0; i < availableVersions.Length; i++)
-                {
-                    Console.Write("   (" + i + ")" + availableVersions[i] + "   ");
-                }
-                try
-                {
-                    intInput = int.Parse(Console.ReadLine());
-                    if (intInput > -1 && intInput < availableVersions.Length + 1)
-                    {
-                        using (WebClient wc = new WebClient())
-                        {
-                            wc.DownloadFile(new System.Uri("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/" + availableVersions[intInput] + ".exe"), @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.exe");
-                            wc.DownloadFile(new System.Uri("https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/" + "license.txt"), @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\license.txt");
-                            choosingVersion = false;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("HexPM Installer >>  That is not a valid entry, please try again\n");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("HexPM Installer >>  An error has occured\n" + ex);
-                    Console.ReadKey(true);
-                }
-            }
+            Console.WriteLine("HexPM Installer >>  Installing...");
+            client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
+            ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
+            File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
             Console.WriteLine("HexPM Installer >>  HexPM should be installed, please contact support through our Discord server if something fails");
             Console.ReadKey(true);
 
