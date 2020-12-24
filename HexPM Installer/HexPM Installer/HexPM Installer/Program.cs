@@ -41,7 +41,7 @@ namespace HexPM_Installer
             {
                 Directory.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM", true);
             }
-            var currentValue = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User).Split(';');
+            var currentValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
             List<string> newValueUninstall = new List<string>();
             if (Environment.GetEnvironmentVariable("Path").Contains(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM"))
             {
@@ -83,7 +83,25 @@ namespace HexPM_Installer
             {
                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\HexPM");
             }
-            var currentValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
+            var currentUninstallValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
+            List<string> newValueUninstall = new List<string>();
+            if (Environment.GetEnvironmentVariable("Path").Contains(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM"))
+            {
+                for (int g = 0; g < currentUninstallValue.Length; g++)
+                {
+                    if (currentUninstallValue[g] == @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM")
+                    {
+                    }
+                    else
+                    {
+                        newValueUninstall.Add(currentUninstallValue[g]);
+                    }
+                }
+                string[] newValue2 = newValueUninstall.ToArray();
+                Environment.SetEnvironmentVariable("Path", string.Join(";", newValue2), EnvironmentVariableTarget.User);
+            }
+            string[] currentValueArray = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
+            string currentValue = string.Join(";", currentValueArray); ;
             var newValue = currentValue + @";C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM";
             Environment.SetEnvironmentVariable("Path", newValue, EnvironmentVariableTarget.User);
 

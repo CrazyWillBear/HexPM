@@ -54,7 +54,7 @@
   <ItemGroup>
     <None Include="app.manifest" />
     <None Include="Examples\example.is" />
-    <Compile Include="ISParser.cs" />
+    <Compile Include="BetterISParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

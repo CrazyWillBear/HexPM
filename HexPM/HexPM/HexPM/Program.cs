@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using FuzzySharp;
@@ -7,7 +8,7 @@ namespace HexPM
 {
     internal class Program
     {
-        public static string version = "v0.5 beta";
+        public static string version = "v0.6 beta";
 
         private static void Main(string[] args)
         {
@@ -30,7 +31,7 @@ namespace HexPM
                 }
                 if (args[0] == "--install" || args[0] == "-i")
                 {
-                    Console.WriteLine("Updating packagelist...");
+                    Console.WriteLine("\nUpdating packagelist...");
                     var client = new WebClient();
                     client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                     Console.WriteLine("Packagelist successfully updated!");
@@ -38,12 +39,12 @@ namespace HexPM
                     {
                         if (args.Length < 2)
                         {
-                            Console.WriteLine("Please specify a package!");
+                            Console.WriteLine("\nPlease specify a package!");
                             Environment.Exit(0);
                         }
                         string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                         string packageName = args[1];
-                        Console.WriteLine("Searching for package in packagelist...");
+                        Console.WriteLine("\nSearching for package in packagelist...");
                         bool packagefound = false;
                         for (int i = 0; i < text.Length; i++)
                         {
@@ -54,19 +55,20 @@ namespace HexPM
                                 packagefound = true;
                                 try
                                 {
-                                    ISParser ISParser = new ISParser();
+                                    BetterISParser BetterISParser = new BetterISParser();
                                     Console.WriteLine("Gathering information from packagelist...");
                                     client = new WebClient();
                                     Console.WriteLine("Downloading installer script...");
                                     client.DownloadFile(textSplit[1], "C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
-                                    Console.WriteLine("Running installer script...");
-                                    ISParser.ParseFile("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
+                                    Console.WriteLine("\nRunning installer script...");
+                                    BetterISParser.parseIS("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
                                     Console.ReadKey(true);
+                                    File.Delete("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
                                     Environment.Exit(0);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine("ERROR! Exception:\n " + ex);
+                                    Console.WriteLine("\nERROR! Exception:\n " + ex);
                                     Console.ReadKey(true);
                                 }
                             }
@@ -133,6 +135,38 @@ namespace HexPM
                                 {
                                     Directory.Delete(textSplit[1], true);
                                     File.Delete(textSplit[2]);
+                                    if (textSplit[4].Contains("EnvVarTrue"))
+                                    {
+                                        string[] envVarSplit = textSplit[4].Split('-');
+                                        var currentUninstallValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
+                                        List<string> newValueUninstall = new List<string>();
+                                        string[] dirSplit = envVarSplit[1].Split('\\');
+                                        for (int d = 0; d < dirSplit.Length; d++)
+                                        {
+                                            if (dirSplit[d] == "Username")
+                                            {
+                                                dirSplit[d] = Environment.UserName;
+                                            }
+                                            dirSplit[d] = dirSplit[d] + "\\";
+                                        }
+                                        string dir = string.Join("", dirSplit);
+                                        Console.WriteLine("Dir = " + dir);
+                                        if (Environment.GetEnvironmentVariable("Path").Contains(dir))
+                                        {
+                                            for (int g = 0; g < currentUninstallValue.Length; g++)
+                                            {
+                                                if (currentUninstallValue[g] == dir)
+                                                {
+                                                }
+                                                else
+                                                {
+                                                    newValueUninstall.Add(currentUninstallValue[g]);
+                                                }
+                                            }
+                                            string[] newValue2 = newValueUninstall.ToArray();
+                                            Environment.SetEnvironmentVariable("Path", string.Join(";", newValue2), EnvironmentVariableTarget.User);
+                                        }
+                                    }
                                     Console.WriteLine("Successfully uninstalled!");
                                     Environment.Exit(0);
                                 }
@@ -144,6 +178,7 @@ namespace HexPM
                             }
                         }
                         Console.WriteLine("This package isn't in your install history! Did you install it through this package manager?");
+                        Environment.Exit(0);
                     }
                     catch (Exception ex)
                     {
@@ -158,8 +193,8 @@ namespace HexPM
                     Console.WriteLine("version, v: displays version information");
                     Console.WriteLine("license, l: displays software license information");
                     Console.WriteLine("clear, c: clears console window");
-                    Console.WriteLine("updatelist, U: updates packagelist\n");
-                    Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                    Console.WriteLine("updatelist, U: updates packagelist");
+                    Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query");
                     Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                     Environment.Exit(0);
                 }
@@ -210,7 +245,7 @@ namespace HexPM
                     Console.Write("HexPM  >>  ");
                     string input = Console.ReadLine();
                     string[] inputSplit = input.Split(' ');
-                    if (inputSplit[0] == "U" || inputSplit[0] == "updatelist")
+                    if (inputSplit[0] == "updatelist" || inputSplit[0] == "U")
                     {
                         var client = new WebClient();
                         Console.WriteLine("Attempting to download packagelist...");
@@ -223,13 +258,11 @@ namespace HexPM
                         catch (Exception ex)
                         {
                             Console.WriteLine("ERROR! Exception:\n " + ex);
-                            Console.ReadKey(true);
-                            ShellMode();
                         }
                     }
                     if (inputSplit[0] == "install" || inputSplit[0] == "i")
                     {
-                        Console.WriteLine("Updating packagelist...");
+                        Console.WriteLine("\nUpdating packagelist...");
                         var client = new WebClient();
                         client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/packagelist.txt", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                         Console.WriteLine("Packagelist successfully updated!");
@@ -237,45 +270,50 @@ namespace HexPM
                         {
                             if (inputSplit.Length < 2)
                             {
-                                Console.WriteLine("Please specify a package!");
+                                Console.WriteLine("\nPlease specify a package!");
                                 ShellMode();
                             }
                             string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
                             string packageName = inputSplit[1];
-                            Console.WriteLine("Searching for package in packagelist...");
+                            Console.WriteLine("\nSearching for package in packagelist...");
+                            bool packagefound = false;
                             for (int i = 0; i < text.Length; i++)
                             {
                                 string[] textSplit = text[i].Split(';');
                                 if (textSplit[0].ToLower() == packageName.ToLower())
                                 {
                                     Console.WriteLine("Package exists!");
+                                    packagefound = true;
                                     try
                                     {
-                                        ISParser ISParser = new ISParser();
+                                        BetterISParser BetterISParser = new BetterISParser();
                                         Console.WriteLine("Gathering information from packagelist...");
                                         client = new WebClient();
                                         Console.WriteLine("Downloading installer script...");
                                         client.DownloadFile(textSplit[1], "C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
-                                        Console.WriteLine("Running installer script...");
-                                        ISParser.ParseFile("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
+                                        Console.WriteLine("\nRunning installer script...");
+                                        BetterISParser.parseIS("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
                                         Console.ReadKey(true);
+                                        File.Delete("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
                                         ShellMode();
                                     }
                                     catch (Exception ex)
                                     {
-                                        Console.WriteLine("ERROR! Exception: \n" + ex);
+                                        Console.WriteLine("\nERROR! Exception:\n " + ex);
                                         Console.ReadKey(true);
-                                        ShellMode();
                                     }
                                 }
                             }
-                            Console.WriteLine("ERROR! Exception: \nPackageDoesn'tExist, try running the 'ulist' command");
-                            Console.ReadKey(true);
-                            ShellMode();
+                            if (packagefound == false)
+                            {
+                                Console.WriteLine("ERROR! Exception: \nPackageDoesn'tExist, try using the 'U' command");
+                                Console.ReadKey(true);
+                                ShellMode();
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("ERROR: Packagelist does not exist! Run the 'U' command to download the latest available packagelist.");
+                            Console.WriteLine("ERROR: Packagelist does not exist! Run the 'ulist' command to download the latest available packagelist.");
                             ShellMode();
                         }
                     }
@@ -322,13 +360,44 @@ namespace HexPM
                             for (int i = 0; i < text.Length; i++)
                             {
                                 string[] textSplit = text[i].Split(';');
-                                if (inputSplit[1].ToLower() == textSplit[0].ToLower())
+                                if (args[1].ToLower() == textSplit[0].ToLower())
                                 {
-                                    Console.WriteLine("Found! Uninstalling...");
                                     if (Directory.Exists(textSplit[1]))
                                     {
                                         Directory.Delete(textSplit[1], true);
                                         File.Delete(textSplit[2]);
+                                        if (textSplit[4].Contains("EnvVarTrue"))
+                                        {
+                                            string[] envVarSplit = textSplit[4].Split('-');
+                                            var currentUninstallValue = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
+                                            List<string> newValueUninstall = new List<string>();
+                                            string[] dirSplit = envVarSplit[1].Split('\\');
+                                            for (int d = 0; d < dirSplit.Length; d++)
+                                            {
+                                                if (dirSplit[d] == "Username")
+                                                {
+                                                    dirSplit[d] = Environment.UserName;
+                                                }
+                                                dirSplit[d] = dirSplit[d] + "\\";
+                                            }
+                                            string dir = string.Join("", dirSplit);
+                                            Console.WriteLine("Dir = " + dir);
+                                            if (Environment.GetEnvironmentVariable("Path").Contains(dir))
+                                            {
+                                                for (int g = 0; g < currentUninstallValue.Length; g++)
+                                                {
+                                                    if (currentUninstallValue[g] == dir)
+                                                    {
+                                                    }
+                                                    else
+                                                    {
+                                                        newValueUninstall.Add(currentUninstallValue[g]);
+                                                    }
+                                                }
+                                                string[] newValue2 = newValueUninstall.ToArray();
+                                                Environment.SetEnvironmentVariable("Path", string.Join(";", newValue2), EnvironmentVariableTarget.User);
+                                            }
+                                        }
                                         Console.WriteLine("Successfully uninstalled!");
                                         ShellMode();
                                     }
@@ -340,6 +409,7 @@ namespace HexPM
                                 }
                             }
                             Console.WriteLine("This package isn't in your install history! Did you install it through this package manager?");
+                            ShellMode();
                         }
                         catch (Exception ex)
                         {
@@ -354,8 +424,8 @@ namespace HexPM
                         Console.WriteLine("version, v: displays version information");
                         Console.WriteLine("license, l: displays software license information");
                         Console.WriteLine("clear, c: clears console window");
-                        Console.WriteLine("updatelist, U: updates packagelist\n");
-                        Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query\n");
+                        Console.WriteLine("updatelist, U: updates packagelist");
+                        Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query");
                         Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                         ShellMode();
                     }
