@@ -150,7 +150,6 @@ namespace HexPM
                                             dirSplit[d] = dirSplit[d] + "\\";
                                         }
                                         string dir = string.Join("", dirSplit);
-                                        Console.WriteLine("Dir = " + dir);
                                         if (Environment.GetEnvironmentVariable("Path").Contains(dir))
                                         {
                                             for (int g = 0; g < currentUninstallValue.Length; g++)
@@ -195,6 +194,7 @@ namespace HexPM
                     Console.WriteLine("clear, c: clears console window");
                     Console.WriteLine("updatelist, U: updates packagelist");
                     Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query");
+                    Console.WriteLine("runis <.isfilename>, r <.isfilename>: runs an installer script (go to HexPM wiki for usage info)");
                     Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                     Environment.Exit(0);
                 }
@@ -226,6 +226,20 @@ namespace HexPM
                     string combinedDirectories = string.Join(", ", directories);
                     Console.WriteLine("Installed packages:\n" + combinedDirectories);
                     Environment.Exit(0);
+                }
+                if (args[0] == "--runis" || args[0] == "-r")
+                {
+                    try
+                    {
+                        BetterISParser.parseIS(@"C:\Users\" + Environment.UserName + @"\Desktop\" + args[1]);
+                        Environment.Exit(0);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERROR! Exception: \nInstaller Script Doesn't Exist!");
+                        Console.WriteLine("Your installer script (.is) file needs to be on your desktop. Then run the 'r' or 'runis' command once again followed by the installer script file name with the file extension included");
+                        Environment.Exit(0);
+                    }
                 }
                 else
                 {
@@ -381,7 +395,6 @@ namespace HexPM
                                                 dirSplit[d] = dirSplit[d] + "\\";
                                             }
                                             string dir = string.Join("", dirSplit);
-                                            Console.WriteLine("Dir = " + dir);
                                             if (Environment.GetEnvironmentVariable("Path").Contains(dir))
                                             {
                                                 for (int g = 0; g < currentUninstallValue.Length; g++)
@@ -426,6 +439,7 @@ namespace HexPM
                         Console.WriteLine("clear, c: clears console window");
                         Console.WriteLine("updatelist, U: updates packagelist");
                         Console.WriteLine("search <query>, s <query>: searches packagelist for the query you input, displays packages who's names contain your query");
+                        Console.WriteLine("runis <.isfilename>, r <.isfilename>: runs an installer script (go to HexPM wiki for usage info)");
                         Console.WriteLine("installed packages, p: displays list of all currently installed packages\n");
                         ShellMode();
                     }
@@ -457,6 +471,20 @@ namespace HexPM
                         string combinedDirectories = string.Join(", ", directories);
                         Console.WriteLine("Installed packages:\n" + combinedDirectories);
                         ShellMode();
+                    }
+                    if (inputSplit[0] == "runis" || inputSplit[0] == "r")
+                    {
+                        try
+                        {
+                            BetterISParser.parseIS(@"C:\Users\" + Environment.UserName + @"\Desktop\" + inputSplit[1]);
+                            ShellMode();
+                        }
+                        catch
+                        {
+                            Console.WriteLine("ERROR! Exception: \nInstaller Script Doesn't Exist!");
+                            Console.WriteLine("Your installer script (.is) file needs to be on your desktop. Then run the 'r' or 'runis' command once again followed by the installer script file name with the file extension included");
+                            ShellMode();
+                        }
                     }
                     else
                     {
