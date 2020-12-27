@@ -15,4 +15,6 @@ As of now, the amount of packages HexPM is capable of installing is small, and a
 The Unlicense - Have fun with it
 
 ## Credits
-I got some help from xsucculentx and members of the C# Discord server, as well as using FuzzySharp
+I got some help from xsucculentx and members of the C# Discord server
+
+This program uses FuzzySharp (https://github.com/JakeBayer/FuzzySharp)
