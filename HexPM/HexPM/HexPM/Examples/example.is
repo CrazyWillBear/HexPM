@@ -1,8 +1,11 @@
-﻿msg|(insert message)
-down|(download url),(filename).zip
-deldir|(directory path)
-createdir|(directory path)
-unzip|(filename).zip,(directory path)
-delfile|(file path)
-createshortcut|(shortcut name),(shortcut path),(shortcut description)
-saveinstall|(package name),(package directory)
+﻿msg|By continuing your installation of Neovim, you agree to the software's license
+down|https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/neovim.zip,neovim.zip
+deldir|C:\Users\Username\HexPM\Neovim
+createdir|C:\Users\Username\HexPM\Neovim
+unzip|neovim.zip,C:\Users\Username\HexPM\Neovim
+delfile|C:\Users\Username\AppData\Roaming\HexPM\neovim.zip
+createshortcut|Neovim,C:\Users\Username\HexPM\Neovim\bin\nvim-qt.exe,Neovim Text Editor
+dpathvar|C:\Users\Username\HexPM\Neovim\bin
+cpathvar|C:\Users\Username\HexPM\Neovim\bin
+saveinstall|NeoVim,C:\Users\Username\HexPM\Neovim,EnvVarTrue-C:\Users\Username\HexPM\Neovim\bin
+complete|
