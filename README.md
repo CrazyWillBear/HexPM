@@ -15,6 +15,4 @@ As of now, the amount of packages HexPM is capable of installing is small, and a
 The Unlicense - Have fun with it
 
 ## Credits
-I got some help from xsucculentx and members of the C# Discord server
-
-Aside from that, HexPM was coded in Visual Studio, and its website on Glitch.me
+I got some help from xsucculentx and members of the C# Discord server, as well as using FuzzySharp
