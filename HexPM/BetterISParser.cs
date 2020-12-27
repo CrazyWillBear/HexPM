@@ -9,22 +9,24 @@ namespace HexPM
 {
     internal class BetterISParser
     {
-        private Program program = new Program();
 
+        //defining 'CreateShortcut' function
         public static void CreateShortcut(string shortcutName, string shortcutPath, string targetFileLocation, string Desc)
         {
             string shortcutLocation = System.IO.Path.Combine(shortcutPath, shortcutName + ".lnk");
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
 
-            shortcut.Description = Desc;   // The description of the shortcut
-            shortcut.TargetPath = targetFileLocation;                 // The path of the file that will launch when the shortcut is run
-            shortcut.Save();                                    // Save the shortcut
+            shortcut.Description = Desc;
+            shortcut.TargetPath = targetFileLocation;
+            shortcut.Save();
         }
 
+        //defining variables
         private static bool restrictInput = true;
         public static string bar = "";
 
+        //defining progress bar function
         private static void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             if (restrictInput == true)
@@ -122,6 +124,8 @@ namespace HexPM
                 }
             }
         }
+
+        //defining the parser function
         public static void parseIS(string fileName)
         {
             string[] text = System.IO.File.ReadAllLines(fileName);
@@ -317,6 +321,7 @@ namespace HexPM
             }
         }
 
+        //defining a parser function that doesn't print to console
         public static void silentParseIS(string fileName)
         {
             string[] text = System.IO.File.ReadAllLines(fileName);
@@ -487,5 +492,6 @@ namespace HexPM
                 if (textSplit[0] == "complete") { }
             }
         }
+
     }
 }

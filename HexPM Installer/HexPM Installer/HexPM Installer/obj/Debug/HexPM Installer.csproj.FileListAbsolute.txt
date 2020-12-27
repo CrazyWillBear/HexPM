@@ -1,7 +1,0 @@
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\obj\Debug\HexPM Installer.csprojAssemblyReference.cache
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\obj\Debug\HexPM Installer.csproj.CoreCompileInputs.cache
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\bin\Debug\HexPM Installer.exe.config
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\bin\Debug\HexPM Installer.exe
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\bin\Debug\HexPM Installer.pdb
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\obj\Debug\HexPM Installer.exe
-C:\Users\crazy\Desktop\HexPM Installer\HexPM Installer\HexPM Installer\obj\Debug\HexPM Installer.pdb

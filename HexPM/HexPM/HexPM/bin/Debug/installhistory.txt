@@ -1,6 +1,0 @@
-Notepad++;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/notepad++.is
-Twitch;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/twitch.is
-Chrome;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/chrome.is
-OBS;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/obs.is
-Firefox;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/firefox.is
-Vim;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/vim.is

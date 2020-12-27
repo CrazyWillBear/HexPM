@@ -73,7 +73,8 @@
     <None Include="app.manifest" />
     <None Include="Examples\example.is" />
     <Compile Include="BetterISParser.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Functions.cs" />
+    <Compile Include="HexPM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
