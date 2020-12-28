@@ -15,11 +15,11 @@ namespace HexPM
         and I didn't want to risk messing it up by making a function in Functions.cs, just a friendly
         warning. Anyways, enjoy HexPM's code!
 
-           -CaptainBear (aka CrazyWillBear(
+           -CaptainBear (aka CrazyWillBear)
         */
 
         //defining version variable
-        public static string version = "v0.7 beta";
+        public static string version = "v0.7.1 beta";
 
         //referencing Functions.cs
         Functions functions = new Functions();
@@ -83,7 +83,7 @@ namespace HexPM
 
                             //saving the installation in versionhistory.txt
                             DateTime now = DateTime.Now;
-                            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\versionhistory.txt", "\n" + packageName.ToLower() + ";" + textSplit[2] + ";" + now.ToString("F"));
+                            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt", "\n" + packageName.ToLower() + ";" + textSplit[2] + ";" + now.ToString("F"));
                             File.Delete("C:/Users/" + Environment.UserName + "/Downloads/" + textSplit[0] + ".is");
 
                             //exiting environment
@@ -124,7 +124,7 @@ namespace HexPM
                     Console.WriteLine("\n-- Searching install history...");
 
                     //defining `text` variable as all lines of installhistory
-                    string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt");
+                    string[] text = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\installhistory.txt");
 
                     //setting up for loop to last as long as installhistory
                     for (int i = 0; i < text.Length; i++)
@@ -299,7 +299,12 @@ namespace HexPM
                         }
 
                         //defining versionhistory
-                        string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\versionhistory.txt");
+                        if (!File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt"))
+                        {
+                            Console.WriteLine("ERROR: Exception:\nVersionHistory.txt doesn't exist! Do you have any packages installed?");
+                            Environment.Exit(1);
+                        }
+                        string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt");
 
                         //for length of versionhistory...
                         for (int v = versionHistoryText.Length - 1; v > -1; v--)

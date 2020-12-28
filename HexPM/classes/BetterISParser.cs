@@ -134,7 +134,11 @@ namespace HexPM
                 string[] textSplit = text[i].Split('|');
                 if (textSplit[0] == "msg")
                 {
-                    Console.WriteLine(textSplit[1] + " (Press any key to continue)\n");
+                    string[] message = textSplit[1].Split(';');
+                    for (int b = 0; b < message.Length; b++)
+                    {
+                        Console.WriteLine(message[b]);
+                    }
                     Console.ReadKey(true);
                 }
                 if (textSplit[0] == "down")
@@ -144,7 +148,7 @@ namespace HexPM
                     using (WebClient wc = new WebClient())
                     {
                         wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                        wc.DownloadFileAsync(new System.Uri(downSplit[0]), @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\" + downSplit[1]);
+                        wc.DownloadFileAsync(new System.Uri(downSplit[0]), @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\" + downSplit[1]);
                     }
                     restrictInput = true;
                     while (restrictInput)
@@ -185,7 +189,7 @@ namespace HexPM
                         dirSplit[d] = dirSplit[d] + "\\";
                     }
                     string dir = string.Join("", dirSplit);
-                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\" + unzipSplit[0], dir);
+                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\" + unzipSplit[0], dir);
                     Console.WriteLine("     (Extracted files)");
                 }
                 if (textSplit[0] == "delfile")
@@ -277,11 +281,11 @@ namespace HexPM
                     DateTime now = DateTime.Now;
                     if (saveInstallSplit[2].Contains("True"))
                     {
-                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";" + saveInstallSplit[2]);
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";" + saveInstallSplit[2]);
                     }
                     else
                     {
-                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";EnvVarFalse");
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";EnvVarFalse");
                     }
                 }
                 if (textSplit[0] == "createshortcut")
@@ -332,7 +336,7 @@ namespace HexPM
                 {
                     string[] downSplit = textSplit[1].Split(',');
                     var client = new WebClient();
-                    client.DownloadFile(downSplit[0], @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\" + downSplit[1]);
+                    client.DownloadFile(downSplit[0], @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\" + downSplit[1]);
                 }
                 if (textSplit[0] == "createdir")
                 {
@@ -361,7 +365,7 @@ namespace HexPM
                         dirSplit[d] = dirSplit[d] + "\\";
                     }
                     string dir = string.Join("", dirSplit);
-                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\" + unzipSplit[0], dir);
+                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\" + unzipSplit[0], dir);
                 }
                 if (textSplit[0] == "delfile")
                 {
@@ -452,11 +456,11 @@ namespace HexPM
                     DateTime now = DateTime.Now;
                     if (saveInstallSplit[2].Contains("True"))
                     {
-                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";" + saveInstallSplit[2]);
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";" + saveInstallSplit[2]);
                     }
                     else
                     {
-                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";EnvVarFalse");
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\installhistory.txt", "\n" + saveInstallSplit[0] + ";" + dir + ";" + @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" + @"\" + saveInstallSplit[0] + ".lnk" + ";" + now.ToString("F") + ";EnvVarFalse");
                     }
                 }
                 if (textSplit[0] == "createshortcut")

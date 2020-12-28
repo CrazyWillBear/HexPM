@@ -70,7 +70,7 @@ namespace HexPM
             client.DownloadFile("https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/" + directory.ToLower() + ".is", "C:/Users/" + Environment.UserName + "/Downloads/" + directory.ToLower() + ".is");
             BetterISParser.silentParseIS("C:/Users/" + Environment.UserName + "/Downloads/" + directory.ToLower() + ".is");
             DateTime now = DateTime.Now;
-            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\versionhistory.txt", "\n" + directory.ToLower() + ";" + mostRecentVersion + ";" + now.ToString("F"));
+            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt", "\n" + directory.ToLower() + ";" + mostRecentVersion + ";" + now.ToString("F"));
             Console.WriteLine("     (Updated " + directory + ")");
         }
 
@@ -89,7 +89,7 @@ namespace HexPM
                     break;
                 }
             }
-            string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\versionhistory.txt");
+            string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt");
             for (int v = versionHistoryText.Length - 1; v > -1; v--)
             {
                 string[] versionHistoryTextSplit = versionHistoryText[v].Split(';');

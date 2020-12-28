@@ -73,6 +73,15 @@ namespace HexPM_Installer
                 {
                     File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\FuzzySharp.dll");
                 }
+                if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache")) {
+                    Directory.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache", true);
+                }
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache");
+                if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history")) { }
+                else
+                {
+                    Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history");
+                }
             }
             else
             {
@@ -101,7 +110,7 @@ namespace HexPM_Installer
                 Environment.SetEnvironmentVariable("Path", string.Join(";", newValue2), EnvironmentVariableTarget.User);
             }
             string[] currentValueArray = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User).Split(';');
-            string currentValue = string.Join(";", currentValueArray); ;
+            string currentValue = string.Join(";", currentValueArray);
             var newValue = currentValue + @";C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM";
             Environment.SetEnvironmentVariable("Path", newValue, EnvironmentVariableTarget.User);
 
@@ -109,15 +118,14 @@ namespace HexPM_Installer
         static void Install()
         {
             var client = new WebClient();
-            Console.WriteLine("HexPM Installer >>  In order to continue the installation, you must agree to the license (https://unlicense.org/). (Press any button to agree with the license and continue the installation, press ctrl+c or close out of the installer to cancel the installation)");
+            Console.WriteLine("HexPM Installer >>  In order to continue the installation, you must agree to the software's license, The Unlicense (https://unlicense.org/). (By pressing any button to continue the installation you agree to the software's license)");
             Console.ReadKey(true);
-            Console.WriteLine("HexPM Installer >>  Installing...");
+            Console.WriteLine("\nHexPM Installer >>  Installing...");
             client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
             ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
             File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
-            Console.WriteLine("HexPM Installer >>  HexPM should be installed, please contact support through our Discord server if something fails");
+            Console.WriteLine("\nHexPM Installer >>  HexPM should be installed, please contact support through our Discord server if something fails");
             Console.ReadKey(true);
-
         }
     }
 }
