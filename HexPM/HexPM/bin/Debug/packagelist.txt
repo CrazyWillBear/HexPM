@@ -1,0 +1,8 @@
+Notepad++;https://hexpm-installer-script-mirrors.crazywillbear.repl.co/notepad++.is;7.9.1
+Twitch;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/twitch.is;1.0
+Chrome;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/chrome.is;1.0
+OBS;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/obs.is;26.0.2
+Firefox;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/firefox.is;84.0.1
+Vim;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/vim.is;8.2.0
+Neovim;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/neovim.is;1.0.0
+Steam;https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/steam.is;6.28.18.86

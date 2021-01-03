@@ -19,7 +19,7 @@ namespace HexPM
         */
 
         //defining version variable
-        public static string version = "v0.7.1 beta";
+        public static string version = "v0.7.2 beta";
 
         //referencing Functions.cs
         Functions functions = new Functions();
@@ -30,7 +30,7 @@ namespace HexPM
             try
             {
 
-                if (args[0] == "--updatelist" || args[0] == "-l")
+                if (args[0] == "updatelist" || args[0] == "ulist")
                 {
 
                     //updating packagelist
@@ -39,7 +39,7 @@ namespace HexPM
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--install" || args[0] == "-i")
+                if (args[0] == "install" || args[0] == "i")
                 {
 
                     //updating packagelist
@@ -102,7 +102,7 @@ namespace HexPM
 
                     }
                 }
-                if (args[0] == "--clear" || args[0] == "-c")
+                if (args[0] == "clear" || args[0] == "c")
                 {
 
                     //clearing console
@@ -110,7 +110,7 @@ namespace HexPM
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--hexpmversion" || args[0] == "-V")
+                if (args[0] == "hexpmversion" || args[0] == "V")
                 {
 
                     //breakline before running function
@@ -118,7 +118,7 @@ namespace HexPM
                     Functions.checkHexPMVersion();
 
                 }
-                if (args[0] == "--uninstall" || args[0] == "-u")
+                if (args[0] == "remove" || args[0] == "r")
                 {
 
                     Console.WriteLine("\n-- Searching install history...");
@@ -204,26 +204,26 @@ namespace HexPM
                     Console.WriteLine("-- This package isn't in your install history! Did you install it through this package manager?");
                     Environment.Exit(0);
                 }
-                if (args[0] == "--help" || args[0] == "-h")
+                if (args[0] == "help" || args[0] == "h")
                 {
 
                     //writing help menu
                     Console.WriteLine("\nHelp Menu:");
                     Console.WriteLine("For details on proper syntax and tips on how to more effectively use HexPM, visit our Wiki (https://github.com/CrazyWillBear/HexPM/wiki)");
                     Console.WriteLine("\n-- install <packagename>, i <packagename>:\n     (installs selected package)");
-                    Console.WriteLine("-- uninstall <packagename>, u <packagename>:\n     (uninstalls selected package)");
+                    Console.WriteLine("-- remove <packagename>, r <packagename>:\n     (uninstalls/removes selected package)");
                     Console.WriteLine("-- hexpmversion, V:\n     (displays HexPM version information)");
                     Console.WriteLine("-- version <packagename>, v <packagename>:\n     (displays version information about the selected package)");
-                    Console.WriteLine("-- updatelist, l:\n     (updates packagelist)");
+                    Console.WriteLine("-- updatelist, ulist:\n     (updates packagelist)");
                     Console.WriteLine("-- search <query>, s <query>:\n     (searches packagelist for the query you input, displays packages who's names contain your query)");
-                    Console.WriteLine("-- runis <.isfilename>, r <.isfilename>:\n     (runs an installer script (go to HexPM wiki for usage info)");
+                    Console.WriteLine("-- runis <.isfilename>:\n     (runs an installer script (go to HexPM wiki for usage info)");
                     Console.WriteLine("-- updateall, U:\n     (updates all applications that require updates)");
-                    Console.WriteLine("-- installed packages, p:\n     (displays list of all currently installed packages)\n");
+                    Console.WriteLine("-- installed packages, ip:\n     (displays list of all currently installed packages)\n");
 
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--search" || args[0] == "-s")
+                if (args[0] == "search" || args[0] == "s")
                 {
 
                     string searchQuery = args[1];
@@ -231,7 +231,7 @@ namespace HexPM
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--installedpackages" || args[0] == "-p")
+                if (args[0] == "installedpackages" || args[0] == "ip")
                 {
 
                     //defining 'directories' variable
@@ -252,7 +252,7 @@ namespace HexPM
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--runis" || args[0] == "-r")
+                if (args[0] == "runis")
                 {
 
                     //explaining how the command is supposed to be performed
@@ -265,7 +265,7 @@ namespace HexPM
                     Environment.Exit(0);
 
                 }
-                if (args[0] == "--updateall" || args[0] == "-U")
+                if (args[0] == "updateall" || args[0] == "U")
                 {
 
                     //updating packagelist
@@ -339,7 +339,7 @@ namespace HexPM
 
                     Environment.Exit(0);
                 }
-                if (args[0] == "--version" || args[0] == "-v")
+                if (args[0] == "version" || args[0] == "v")
                 {
 
                     //updating packagelist
