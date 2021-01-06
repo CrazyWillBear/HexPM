@@ -19,7 +19,7 @@ namespace HexPM
         */
 
         //defining version variable
-        public static string version = "v0.7.2 beta";
+        public static string version = "v0.8.0 beta";
 
         //referencing Functions.cs
         private Functions functions = new Functions();
