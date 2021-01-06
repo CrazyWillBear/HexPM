@@ -22,26 +22,22 @@ namespace HexPM
         public static string version = "v0.7.2 beta";
 
         //referencing Functions.cs
-        Functions functions = new Functions();
-        
+        private Functions functions = new Functions();
+
         private static void Main(string[] args)
         {
             //trying to run all code and catches any errors
             try
             {
-
-                if (args[0] == "updatelist" || args[0] == "ulist")
+                if (args[0] == "ulist")
                 {
-
                     //updating packagelist
                     Functions.updatePkgList();
 
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "install" || args[0] == "i")
+                if (args[0] == "install")
                 {
-
                     //updating packagelist
                     Functions.updatePkgList();
 
@@ -62,12 +58,10 @@ namespace HexPM
                     //a for loop lasting as long as the packagelist itself
                     for (int i = 0; i < text.Length; i++)
                     {
-
                         string[] textSplit = text[i].Split(';');
 
                         if (textSplit[0].ToLower() == packageName.ToLower())
                         {
-
                             //declaring that package exists, such that the package manager doesn't display that the package doesn't exist
                             Console.WriteLine("     (Package exists)\n");
                             packagefound = true;
@@ -88,39 +82,31 @@ namespace HexPM
 
                             //exiting environment
                             Environment.Exit(0);
-
                         }
                     }
 
                     //if a package wasn't found throughout the process, then display an error saying that the package doesn't exist
                     if (packagefound == false)
                     {
-
                         Console.WriteLine("ERROR! Exception: \nPackage Doesn't Exist, try searching for a package using the 's' command");
                         Console.ReadKey(true);
                         Environment.Exit(0);
-
                     }
                 }
-                if (args[0] == "clear" || args[0] == "c")
+                if (args[0] == "clear") /* useless */
                 {
-
                     //clearing console
                     Console.Clear();
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "hexpmversion" || args[0] == "V")
+                if (args[0] == "version")
                 {
-
-                    //breakline before running function
                     Console.WriteLine();
-                    Functions.checkHexPMVersion();
-
+                    if (args.Length != 1) { Functions.checkPkgVersion(args[1]); }
+                    else { Functions.checkHexPMVersion(); }
                 }
-                if (args[0] == "remove" || args[0] == "r")
+                if (args[0] == "remove" || args[0] == "uninstall")
                 {
-
                     Console.WriteLine("\n-- Searching install history...");
 
                     //defining `text` variable as all lines of installhistory
@@ -129,18 +115,15 @@ namespace HexPM
                     //setting up for loop to last as long as installhistory
                     for (int i = 0; i < text.Length; i++)
                     {
-
                         //defining `textSplit`
                         string[] textSplit = text[i].Split(';');
 
                         //if the inputted packagename = the packagename of the current installhistory line, then...
                         if (args[1].ToLower() == textSplit[0].ToLower())
                         {
-
                             //if the directory exists as written in installhistory, then...
                             if (Directory.Exists(textSplit[1]))
                             {
-
                                 Console.WriteLine("-- Deleting files...");
 
                                 //deleting program files
@@ -192,10 +175,8 @@ namespace HexPM
                             //if the directory doesn't exist as written in installhistory, then cancel the uninstallion command
                             else
                             {
-
                                 Console.WriteLine("     (This package was already uninstalled)");
                                 Environment.Exit(0);
-
                             }
                         }
                     }
@@ -204,9 +185,8 @@ namespace HexPM
                     Console.WriteLine("-- This package isn't in your install history! Did you install it through this package manager?");
                     Environment.Exit(0);
                 }
-                if (args[0] == "help" || args[0] == "h")
+                if (args[0] == "help")
                 {
-
                     //writing help menu
                     Console.WriteLine("\nHelp Menu:");
                     Console.WriteLine("For details on proper syntax and tips on how to more effectively use HexPM, visit our Wiki (https://github.com/CrazyWillBear/HexPM/wiki)");
@@ -221,19 +201,15 @@ namespace HexPM
                     Console.WriteLine("-- installed packages, ip:\n     (displays list of all currently installed packages)\n");
 
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "search" || args[0] == "s")
+                if (args[0] == "search")
                 {
-
                     string searchQuery = args[1];
                     Functions.searchPkgList(searchQuery);
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "installedpackages" || args[0] == "ip")
+                if (args[0] == "list")
                 {
-
                     //defining 'directories' variable
                     string[] directories = Directory.GetDirectories("C:/Users/" + Environment.UserName + "/HexPM");
 
@@ -250,24 +226,20 @@ namespace HexPM
                     Console.WriteLine("\n-- Installed packages:\n     (" + combinedDirectories + ")");
 
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "runis")
+                if (args[0] == "parse")
                 {
-
                     //explaining how the command is supposed to be performed
                     Console.WriteLine("Your installer script (.is) file needs to be on your desktop. You are supposed to run the 'r' or 'runis' command followed by the installer script file name with the file extension included (Press any key to continue)");
                     Console.ReadKey(true);
 
                     //parsing custom written .is file
                     BetterISParser.parseIS(@"C:\Users\" + Environment.UserName + @"\Desktop\" + args[1]);
-                        
+
                     Environment.Exit(0);
-
                 }
-                if (args[0] == "updateall" || args[0] == "U")
+                if (args[0] == "updateall")
                 {
-
                     //updating packagelist
                     Functions.updatePkgList();
 
@@ -278,24 +250,19 @@ namespace HexPM
                     //for the length of directories...
                     for (int i = 0; i < directories.Length; i++)
                     {
-
                         string mostRecentVersion = "0";
 
                         directories[i] = directories[i].Split('\\')[1];
 
                         for (int x = 0; i < pkgListText.Length; x++)
                         {
-
                             string[] pkgListTextSplit = pkgListText[x].Split(';');
 
                             if (pkgListTextSplit[0] == directories[i])
                             {
-
                                 mostRecentVersion = pkgListTextSplit[2];
                                 break;
-
                             }
-
                         }
 
                         //defining versionhistory
@@ -309,26 +276,20 @@ namespace HexPM
                         //for length of versionhistory...
                         for (int v = versionHistoryText.Length - 1; v > -1; v--)
                         {
-
                             string[] versionHistoryTextSplit = versionHistoryText[v].Split(';');
 
                             if (versionHistoryTextSplit[0] == directories[i].ToLower())
                             {
-
                                 if (versionHistoryTextSplit[1] != mostRecentVersion)
                                 {
-
                                     //updating package
                                     Functions.updatePkg(directories[i], mostRecentVersion);
                                     break;
-
                                 }
 
                                 if (versionHistoryTextSplit[1] == mostRecentVersion)
                                 {
-
                                     break;
-
                                 }
                             }
                         }
@@ -339,33 +300,16 @@ namespace HexPM
 
                     Environment.Exit(0);
                 }
-                if (args[0] == "version" || args[0] == "v")
-                {
-
-                    //updating packagelist
-                    Functions.updatePkgList();
-
-                    //checking package version
-                    Functions.checkPkgVersion(args[1]);
-
-                    //if the functions don't exit the environment, this will display
-                    Console.WriteLine("-- Package isn't installed! Check your spelling and/or make sure this package is installed!");
-                    Environment.Exit(0);
-                }
                 else
                 {
-
                     //if the input doesn't match any commands
                     Console.WriteLine("ERROR! Exception: \nCommand unknown.");
                 }
-
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("\nERROR! Exception:\n" + ex);
                 Environment.Exit(1);
-
             }
         }
     }

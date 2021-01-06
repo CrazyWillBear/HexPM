@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Threading;
 
 namespace HexPM
 {
     internal class BetterISParser
     {
-
         //defining 'CreateShortcut' function
         public static void CreateShortcut(string shortcutName, string shortcutPath, string targetFileLocation, string Desc)
         {
@@ -24,6 +24,7 @@ namespace HexPM
 
         //defining variables
         private static bool restrictInput = true;
+
         public static string bar = "";
 
         //defining progress bar function
@@ -160,6 +161,7 @@ namespace HexPM
                             break;
                         }
                     }
+                    Thread.Sleep(500);
                 }
                 if (textSplit[0] == "createdir")
                 {
@@ -496,6 +498,5 @@ namespace HexPM
                 if (textSplit[0] == "complete") { }
             }
         }
-
     }
 }
