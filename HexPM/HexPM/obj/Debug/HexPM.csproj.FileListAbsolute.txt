@@ -20,8 +20,6 @@ C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.Cor
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.CopyComplete
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.exe
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.pdb
-<<<<<<< Updated upstream
-=======
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.exe.config
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.exe
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.pdb
@@ -33,4 +31,14 @@ C:\Users\crazy\Desktop\HexPM New\HexPM\obj\Debug\HexPM.csproj.CoreCompileInputs.
 C:\Users\crazy\Desktop\HexPM New\HexPM\obj\Debug\HexPM.csproj.CopyComplete
 C:\Users\crazy\Desktop\HexPM New\HexPM\obj\Debug\HexPM.exe
 C:\Users\crazy\Desktop\HexPM New\HexPM\obj\Debug\HexPM.pdb
->>>>>>> Stashed changes
+C:\Users\crazy\Desktop\HexPM\HexPM\bin\Debug\HexPM.exe.config
+C:\Users\crazy\Desktop\HexPM\HexPM\bin\Debug\HexPM.exe
+C:\Users\crazy\Desktop\HexPM\HexPM\bin\Debug\HexPM.pdb
+C:\Users\crazy\Desktop\HexPM\HexPM\bin\Debug\FuzzySharp.dll
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csprojAssemblyReference.cache
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csproj.ResolveComReference.cache
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csproj.CoreCompileInputs.cache
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csproj.CopyComplete
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.exe
+C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.pdb

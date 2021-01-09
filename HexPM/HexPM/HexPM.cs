@@ -19,7 +19,7 @@ namespace HexPM
         */
 
         //defining version variable
-        public static string version = "v0.8.0 beta";
+        public static string version = "v0.8.1 beta";
 
         //referencing Functions.cs
         private Functions functions = new Functions();
@@ -190,15 +190,15 @@ namespace HexPM
                     //writing help menu
                     Console.WriteLine("\nHelp Menu:");
                     Console.WriteLine("For details on proper syntax and tips on how to more effectively use HexPM, visit our Wiki (https://github.com/CrazyWillBear/HexPM/wiki)");
-                    Console.WriteLine("\n-- install <packagename>, i <packagename>:\n     (installs selected package)");
+                    Console.WriteLine("\n-- install <packagename>:\n     (installs selected package)");
                     Console.WriteLine("-- remove <packagename>, r <packagename>:\n     (uninstalls/removes selected package)");
-                    Console.WriteLine("-- hexpmversion, V:\n     (displays HexPM version information)");
-                    Console.WriteLine("-- version <packagename>, v <packagename>:\n     (displays version information about the selected package)");
-                    Console.WriteLine("-- updatelist, ulist:\n     (updates packagelist)");
-                    Console.WriteLine("-- search <query>, s <query>:\n     (searches packagelist for the query you input, displays packages who's names contain your query)");
-                    Console.WriteLine("-- runis <.isfilename>:\n     (runs an installer script (go to HexPM wiki for usage info)");
-                    Console.WriteLine("-- updateall, U:\n     (updates all applications that require updates)");
-                    Console.WriteLine("-- installed packages, ip:\n     (displays list of all currently installed packages)\n");
+                    Console.WriteLine("-- version <packagename> *or* version:\n     (displays version information about the selected package, if package is blank will display HexPM version info)");
+                    Console.WriteLine("-- ulist:\n     (updates packagelist)");
+                    Console.WriteLine("-- search <query>:\n     (searches packagelist for the query you input, displays packages who's names contain your query)");
+                    Console.WriteLine("-- parse <.isfilename>:\n     (runs an installer script (go to HexPM wiki for usage info)");
+                    Console.WriteLine("-- updateall:\n     (updates all applications that require updates)");
+                    Console.WriteLine("-- update <packagename>\n     (updates requested package if the package requires an update)");
+                    Console.WriteLine("-- list:\n     (displays list of all currently installed packages)\n");
 
                     Environment.Exit(0);
                 }
@@ -299,6 +299,59 @@ namespace HexPM
                     Functions.silentCheckHexPMVersion();
 
                     Environment.Exit(0);
+                }
+                if (args[0] == "update")
+                {
+                    //updating packagelist
+                    Functions.updatePkgList();
+
+                    //defining variables
+                    string[] pkgListText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                    if (!File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt"))
+                    {
+                        Console.WriteLine("ERROR: Exception:\nVersionHistory.txt doesn't exist! Do you have any packages installed?");
+                        Environment.Exit(1);
+                    }
+                    string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt");
+
+                    //defining mostRecentVersion
+                    string mostRecentVersion = "0";
+
+                    string pkgName = "";
+                    for (int i = 0; i < pkgListText.Length; i++)
+                    {
+                        string[] pkgListTextSplit = pkgListText[i].Split(';');
+
+                        if (pkgListTextSplit[0].ToLower() == args[1].ToLower())
+                        {
+                            mostRecentVersion = pkgListTextSplit[2];
+                            pkgName = pkgListTextSplit[0];
+                            break;
+                        }
+                    }
+
+                    //for length of versionhistory.txt...
+                    for (int v = versionHistoryText.Length - 1; v > -1; v--)
+                    {
+                        string[] versionHistoryTextSplit = versionHistoryText[v].Split(';');
+
+                        if (versionHistoryTextSplit[0].ToLower() == pkgName.ToLower())
+                        {
+                            if (versionHistoryTextSplit[1] != mostRecentVersion)
+                            {
+                                //updating package
+                                Functions.updatePkg(pkgName, mostRecentVersion);
+                                break;
+                            }
+
+                            if (versionHistoryTextSplit[1] == mostRecentVersion)
+                            {
+                                Console.WriteLine("-- This package is already on the latest available version");
+                                Console.WriteLine("     (Cancelling update)");
+                                break;
+                            }
+                        }
+                    }
                 }
                 else
                 {
