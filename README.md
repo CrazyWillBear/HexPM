@@ -12,7 +12,7 @@ As of now, the amount of packages HexPM is capable of installing is small, and a
 ![alt text](https://cdn.discordapp.com/attachments/606270006040199209/796170849773813770/unknown.png)
 
 ## License
-The Unlicense - Have fun with it
+The Unlicense - For the moment I've chosen The Unlicense because I don't want to impose restrictions or limit compatibility during the beta stages of development. Later on, if it allows, I may change the license to better suite HexPM's needs.
 
 ## Credits
 xsucculentx has contributed enough to the project to be considered a developer. He has rewritten parts of the code and given plenty of advice on how syntax and visuals should work within HexPM.
