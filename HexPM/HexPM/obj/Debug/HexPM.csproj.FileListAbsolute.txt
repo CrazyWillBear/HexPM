@@ -20,6 +20,7 @@ C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.Cor
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.csproj.CopyComplete
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.exe
 C:\Users\succulent\Documents\GitHub\HexPM\HexPM\HexPM\obj\Debug\HexPM.pdb
+<<<<<<< HEAD
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.exe.config
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.exe
 C:\Users\crazy\Desktop\HexPM New\HexPM\bin\Debug\HexPM.pdb
@@ -42,3 +43,5 @@ C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csproj.CoreCompileInputs.cach
 C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.csproj.CopyComplete
 C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.exe
 C:\Users\crazy\Desktop\HexPM\HexPM\obj\Debug\HexPM.pdb
+=======
+>>>>>>> f360e0623861fa5dc437a54c16d07452be1dc920

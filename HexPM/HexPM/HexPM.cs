@@ -300,6 +300,7 @@ namespace HexPM
 
                     Environment.Exit(0);
                 }
+<<<<<<< HEAD
                 if (args[0] == "update")
                 {
                     //updating packagelist
@@ -353,6 +354,8 @@ namespace HexPM
                         }
                     }
                 }
+=======
+>>>>>>> f360e0623861fa5dc437a54c16d07452be1dc920
                 else
                 {
                     //if the input doesn't match any commands
