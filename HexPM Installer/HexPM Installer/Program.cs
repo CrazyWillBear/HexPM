@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 
@@ -122,6 +123,7 @@ namespace HexPM_Installer
             Console.ReadKey(true);
             Console.WriteLine("\nHexPM Installer >>  Installing...");
             client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
+            Thread.Sleep(500);
             ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM");
             File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\HexPM.zip");
             Console.WriteLine("\nHexPM Installer >>  HexPM should be installed, please contact support through our Discord server if something fails");
