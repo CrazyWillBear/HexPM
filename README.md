@@ -7,6 +7,13 @@ HexPM is a package manager coded in C# for Windows 10. It can install packages, 
 ## Limitations
 As of now, the amount of packages HexPM is capable of installing is small, and aside from that some packages don't even work. We also know that it can be a bit slow at times and that some commands simply break down unexpectedly.
 
+## Requirements
+
+- A system running Windows 10 64-bit
+- An internet connection
+- Working Path variables
+- Working command prompt
+
 ## Future Goals
 
 - Command to update HexPM within HexPM
