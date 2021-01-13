@@ -16,8 +16,7 @@ As of now, the amount of packages HexPM is capable of installing is small, and a
 
 ## Future Goals
 
-- Command to update HexPM within HexPM
-- Rewrite installer script parser so that you write into a `.json` file
+- Add more packages
 
 ## Screenshots
 ![alt text](https://cdn.discordapp.com/attachments/606270006040199209/796170724795482213/unknown.png)
