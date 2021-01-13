@@ -17,6 +17,7 @@ As of now, the amount of packages HexPM is capable of installing is small, and a
 ## Future Goals
 
 - Add more packages
+- Rework the way installhistory and versionhistory work
 
 ## Screenshots
 ![alt text](https://cdn.discordapp.com/attachments/606270006040199209/796170724795482213/unknown.png)
