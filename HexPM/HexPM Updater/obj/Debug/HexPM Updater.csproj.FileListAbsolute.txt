@@ -1,0 +1,7 @@
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\bin\Debug\HexPM Updater.exe.config
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\bin\Debug\HexPM Updater.exe
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\bin\Debug\HexPM Updater.pdb
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\obj\Debug\HexPM Updater.csprojAssemblyReference.cache
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\obj\Debug\HexPM Updater.csproj.CoreCompileInputs.cache
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\obj\Debug\HexPM Updater.exe
+C:\Users\crazy\Desktop\HexPM\HexPM Updater\obj\Debug\HexPM Updater.pdb

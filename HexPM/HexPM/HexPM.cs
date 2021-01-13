@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace HexPM
 {
@@ -19,7 +20,7 @@ namespace HexPM
         */
 
         //defining version variable
-        public static string version = "v0.8.1 beta";
+        public static string version = "v0.8.2 beta";
 
         //referencing Functions.cs
         private Functions functions = new Functions();
@@ -197,7 +198,7 @@ namespace HexPM
                     Console.WriteLine("-- search <query>:\n     (searches packagelist for the query you input, displays packages who's names contain your query)");
                     Console.WriteLine("-- parse <.isfilename>:\n     (runs an installer script (go to HexPM wiki for usage info)");
                     Console.WriteLine("-- updateall:\n     (updates all applications that require updates)");
-                    Console.WriteLine("-- update <packagename>\n     (updates requested package if the package requires an update)");
+                    Console.WriteLine("-- update <packagename> *or* update:\n     (updates requested package if the package requires an update, if package is left blank will update HexPM if an update is available)");
                     Console.WriteLine("-- list:\n     (displays list of all currently installed packages)\n");
 
                     Environment.Exit(0);
@@ -300,62 +301,88 @@ namespace HexPM
 
                     Environment.Exit(0);
                 }
-<<<<<<< HEAD
                 if (args[0] == "update")
                 {
-                    //updating packagelist
-                    Functions.updatePkgList();
+                    if (args.Length != 1) {
+                        //updating packagelist
+                        Functions.updatePkgList();
 
-                    //defining variables
-                    string[] pkgListText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
-                    if (!File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt"))
-                    {
-                        Console.WriteLine("ERROR: Exception:\nVersionHistory.txt doesn't exist! Do you have any packages installed?");
-                        Environment.Exit(1);
-                    }
-                    string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt");
-
-                    //defining mostRecentVersion
-                    string mostRecentVersion = "0";
-
-                    string pkgName = "";
-                    for (int i = 0; i < pkgListText.Length; i++)
-                    {
-                        string[] pkgListTextSplit = pkgListText[i].Split(';');
-
-                        if (pkgListTextSplit[0].ToLower() == args[1].ToLower())
+                        //defining variables
+                        string[] pkgListText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\packagelist.txt");
+                        if (!File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt"))
                         {
-                            mostRecentVersion = pkgListTextSplit[2];
-                            pkgName = pkgListTextSplit[0];
-                            break;
+                            Console.WriteLine("ERROR: Exception:\nVersionHistory.txt doesn't exist! Do you have any packages installed?");
+                            Environment.Exit(1);
                         }
-                    }
+                        string[] versionHistoryText = File.ReadAllLines(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\history\versionhistory.txt");
 
-                    //for length of versionhistory.txt...
-                    for (int v = versionHistoryText.Length - 1; v > -1; v--)
-                    {
-                        string[] versionHistoryTextSplit = versionHistoryText[v].Split(';');
+                        //defining mostRecentVersion
+                        string mostRecentVersion = "0";
 
-                        if (versionHistoryTextSplit[0].ToLower() == pkgName.ToLower())
+                        string pkgName = "";
+                        for (int i = 0; i < pkgListText.Length; i++)
                         {
-                            if (versionHistoryTextSplit[1] != mostRecentVersion)
-                            {
-                                //updating package
-                                Functions.updatePkg(pkgName, mostRecentVersion);
-                                break;
-                            }
+                            string[] pkgListTextSplit = pkgListText[i].Split(';');
 
-                            if (versionHistoryTextSplit[1] == mostRecentVersion)
+                            if (pkgListTextSplit[0].ToLower() == args[1].ToLower())
                             {
-                                Console.WriteLine("-- This package is already on the latest available version");
-                                Console.WriteLine("     (Cancelling update)");
+                                mostRecentVersion = pkgListTextSplit[2];
+                                pkgName = pkgListTextSplit[0];
                                 break;
                             }
+                        }
+
+                        //for length of versionhistory.txt...
+                        for (int v = versionHistoryText.Length - 1; v > -1; v--)
+                        {
+                            string[] versionHistoryTextSplit = versionHistoryText[v].Split(';');
+
+                            if (versionHistoryTextSplit[0].ToLower() == pkgName.ToLower())
+                            {
+                                if (versionHistoryTextSplit[1] != mostRecentVersion)
+                                {
+                                    //updating package
+                                    Functions.updatePkg(pkgName, mostRecentVersion);
+                                    break;
+                                }
+
+                                if (versionHistoryTextSplit[1] == mostRecentVersion)
+                                {
+                                    Console.WriteLine("-- This package is already on the latest available version");
+                                    Console.WriteLine("     (Cancelling update)");
+                                    break;
+                                }
+                            }
+                        }
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        var client = new WebClient();
+                        string latestVersion = client.DownloadString("https://HexPM-Installer-Script-Mirrors.crazywillbear.repl.co/latestversion.txt");
+                        if (latestVersion != version)
+                        {
+                            //download updater.exe
+                            Console.WriteLine("-- Updating HexPM...");
+                            if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\updater.exe"))
+                            {
+                                File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\updater.exe");
+                            }
+                            client.DownloadFile("https://hexpm-installer-script-mirrors.crazywillbear.repl.co/updater.exe", @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\updater.exe");
+                            Thread.Sleep(500);
+                            Console.WriteLine("     (Downloaded HexPM Updater)");
+                            System.Diagnostics.Process.Start(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\HexPM\cache\updater.exe");
+                            Console.WriteLine("     (Update successful)");
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            Console.WriteLine("-- HexPM does not require an update");
+                            Console.WriteLine("     (Cancelled update)");
+                            Environment.Exit(0);
                         }
                     }
                 }
-=======
->>>>>>> f360e0623861fa5dc437a54c16d07452be1dc920
                 else
                 {
                     //if the input doesn't match any commands

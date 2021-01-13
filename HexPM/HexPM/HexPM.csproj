@@ -75,6 +75,7 @@
     <Compile Include="BetterISParser.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="HexPM.cs" />
+    <Compile Include="JSONParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
