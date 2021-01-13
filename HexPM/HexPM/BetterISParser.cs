@@ -132,7 +132,7 @@ namespace HexPM
             string[] text = System.IO.File.ReadAllLines(fileName);
             for (int i = 0; i < text.Length; i++)
             {
-                string[] textSplit = text[i].Split('|');
+                string[] textSplit = text[i].Split('=');
                 if (textSplit[0] == "msg")
                 {
                     string[] message = textSplit[1].Split(';');
