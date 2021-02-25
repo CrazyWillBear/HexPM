@@ -1,5 +1,5 @@
 # HexPM
-HexPM is a package manager for Windows 10.
+Development of HexPM has come to a conclusion. Both succulent and I have begun work on Packlet, a package manager coded in Rust. As a result, HexPM will remain fully open source on GitHub and all info that is currently available about HexPM will remain accessable. The installer and all other features should remain operable, and support will still be offered on the HexPM Discord server. There are currently no plans to continue adding packages to HexPM's packagelist. Thanks so much!
 
 ## Summary
 HexPM is a package manager coded in C# for Windows 10. It can install packages, uninstall them, check their versions, update them, etc.
